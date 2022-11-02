@@ -17,31 +17,49 @@ public class steakMovement : MonoBehaviour
     private const float smallFireSpeed = 4.5f;
 
     //set meat completeness
+    private float[] bigFireCompleteness;
+    private float[] middleFireCompleteness;
+    private float[] smallFireCompleteness;
     private float[] meatCompleteness;
     //FIXME in future 菜单引用后可能会使用菜单script的static变量
     private bool[] panHasMeat;
 
     //record time
     private float[] levelTimer;
+    private float[] leftTime; //record the time before change fire
+    private float[,] timeInterval; // 4 * 3 array, 4 pans vs 3 type of fire, small -> middle -> big fire
     private bool updateTimer;
 
     private bool passTime;
     private int[] previousFire;
 
+    private bool controlTimeIntervalIncrement;
+
+    private bool test1;
+    private bool test2;
+    private bool test3;
+
     // Start is called before the first frame update
     void Start()
     {
+        bigFireCompleteness = new float[]{0.0f,0.0f,0.0f,0.0f};
+        middleFireCompleteness = new float[]{0.0f,0.0f,0.0f,0.0f};
+        smallFireCompleteness = new float[]{0.0f,0.0f,0.0f,0.0f};
         meatCompleteness = new float[]{0.0f,0.0f,0.0f,0.0f};
         panHasMeat = new bool[]{false,false,false,false};
         levelTimer = new float[]{0.0f,0.0f,0.0f,0.0f};
+        leftTime = new float[]{0.0f,0.0f,0.0f,0.0f};
+        timeInterval = new float[,]{{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f}};
         previousFire = new int[]{3,3,3,3};
         updateTimer = true;
         passTime = true;
+        test1 = true;
+        test2 = true;
+        test3 = true;
     }
 
     //TODO 火候计算完成度
     //TODO 可控制4个锅并计算
-    //TEST
 
     // Update is called once per frame
     void Update()
@@ -53,40 +71,63 @@ public class steakMovement : MonoBehaviour
             }
         }
 
-        //TEST ONLY
-        if(levelTimer[0]>=2&&passTime){
-            panHasMeat[0] = true;
-            levelTimer[0] = 0.0f;
-            passTime=false;
+        for(int i=0;i<leftTime.Length;i++){
+            //TEST ONLY
+            if(levelTimer[i]>=2&&passTime){
+                panHasMeat[i] = true;
+                levelTimer[i] = 0.0f;
+                if(i==3){
+                    passTime=false;
+                }
+            }
+            
+            //check current pan and current fire
+            int currentPan = PanController.currentPan;
+            int[] currentFire = fireController.currentFire;
+
+            //calculate completeness
+            if(panHasMeat[i]){
+                float currentTimeInterval = levelTimer[i] - leftTime[i] + timeInterval[i,currentFire[i]-1];
+                switch(currentFire[i]){
+                    case 3:
+                        bigFireCompleteness[i] = currentTimeInterval * bigFireSpeed;
+                        break;
+                    case 2:
+                        middleFireCompleteness[i] = currentTimeInterval * middleFireSpeed;
+                        break;
+                    case 1:
+                        smallFireCompleteness[i] = currentTimeInterval * smallFireSpeed;
+                        break;
+                    default:
+                        break;
+                }
+                meatCompleteness[i] = bigFireCompleteness[i]+middleFireCompleteness[i]+smallFireCompleteness[i];
+                print("meat completeness:"+meatCompleteness[i].ToString());
+            }
+
+            //detect if fire is changed
+            if(previousFire[i]!=currentFire[i]){
+                //calculate accumulated each fire's interval
+                timeInterval[i,previousFire[i]-1] += levelTimer[i] - leftTime[i];
+                print("detected previous fire: "+previousFire[i].ToString()+"timeInterval: "+timeInterval[i,previousFire[i]-1]);
+            
+                leftTime[i] = levelTimer[i];
+                //!!!!!!!!!NOTICE this must set [0] to [0] otherwise, the previous will be current, the same thing
+                previousFire[i] = currentFire[i];
+                }
+
+            //check if meat is done, and its current status
+            if(meatCompleteness[i]<50&&test1){
+                GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = rawMeat;
+            }else if(meatCompleteness[i]>50&&meatCompleteness[i]<80&&test2){
+                GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = mediumMeat;
+            }else if(meatCompleteness[i]>80&&meatCompleteness[i]<110&&test3){
+                GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = wellDoneMeat;
+            }else{
+
+            }
         }
+
         
-        //check current pan and current fire
-        int currentPan = PanController.currentPan;
-        int[] currentFire = fireController.currentFire;
-
-        //calculate completeness
-        if(panHasMeat[0]){
-            meatCompleteness[0] = levelTimer[0] * bigFireSpeed;
-            print("meat completeness:"+meatCompleteness[0].ToString());
-        }
-
-        //detect if fire is changed
-        if(previousFire[0]!=currentFire[0]){
-            levelTimer[0] = 0.0f;
-            //!!!!!!!!!NOTICE this must set [0] to [0] otherwise, the previous will be current, the same thing
-            previousFire[0] = currentFire[0];
-            print("detected");
-        }
-
-        //check if meat is done, and its current status
-        if(meatCompleteness[0]<=50){
-            GameObject.Find("steak_005").GetComponent<SpriteRenderer>().sprite = rawMeat;
-        }else if(meatCompleteness[0]<=80){
-            GameObject.Find("steak_005").GetComponent<SpriteRenderer>().sprite = mediumMeat;
-        }else if(meatCompleteness[0]<=110){
-            GameObject.Find("steak_005").GetComponent<SpriteRenderer>().sprite = wellDoneMeat;
-        }else{
-
-        }
     }
 }
