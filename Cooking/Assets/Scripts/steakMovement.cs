@@ -41,6 +41,7 @@ public class steakMovement : MonoBehaviour
 
     //TODO 火候计算完成度
     //TODO 可控制4个锅并计算
+    //TEST
 
     // Update is called once per frame
     void Update()
