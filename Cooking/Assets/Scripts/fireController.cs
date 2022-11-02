@@ -1,33 +1,67 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-
 public class fireController : MonoBehaviour
 {
-    public Sprite newImage;
-
-    public GameObject ant;
-    private PanController pan;
-    
+    private const int BIG_FIRE = 3;
+    private const int MIDDLE_FIRE = 2;
+    private const int SMALL_FIRE = 1;
+    public Sprite bigFire;
+    public Sprite middleFire;
+    public Sprite smallFire;
+    static public int[] currentFire;
     // Start is called before the first frame update
     void Start()
     {   
-        ant = GameObject.FindGameObjectWithTag("arrow");
-        pan = ant.GetComponent<PanController>();
+        currentFire = new int[]{BIG_FIRE,BIG_FIRE,BIG_FIRE,BIG_FIRE};
     }
-
     // Update is called once per frame
     void Update()
     {
-        //control pan's fire
-        // print(gameObject);
-        print(pan.currentPan);
+        int currentPanIdex = PanController.currentPan - 1;
+        string fireName = "fire"+PanController.currentPan.ToString();
         if(Input.GetKeyDown(KeyCode.UpArrow)){
+            if(currentFire[currentPanIdex]!=BIG_FIRE){
+                currentFire[currentPanIdex]++;
+            }
+            switch (currentFire[currentPanIdex])
+            {
+                case BIG_FIRE:
+                    GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = bigFire;
+                    break;
+                case MIDDLE_FIRE:
+                    GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = middleFire;
+                    break;
+                case SMALL_FIRE:
+                    GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = smallFire;
+                    break;
+                default:
+                    GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = bigFire;
+                    break;
+            }
             Debug.Log("up arrow");
         }else if(Input.GetKeyDown(KeyCode.DownArrow)){
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = newImage;
+            if(currentFire[currentPanIdex]!=SMALL_FIRE){
+                currentFire[currentPanIdex]--;
+            }
+            switch (currentFire[currentPanIdex])
+            {
+                case BIG_FIRE:
+                    GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = bigFire;
+                    break;
+                case MIDDLE_FIRE:
+                    GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = middleFire;
+                    break;
+                case SMALL_FIRE:
+                    GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = smallFire;
+                    break;
+                default:
+                    GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = smallFire;
+                    break;
+            }
             Debug.Log("down arrow");
         }
     }

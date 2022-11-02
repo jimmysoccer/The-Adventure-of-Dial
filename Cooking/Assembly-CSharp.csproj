@@ -264,6 +264,15 @@
     <Reference Include="Newtonsoft.Json">
         <HintPath>E:\Unity\Cooking\Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Analytics.StandardEvents">
+        <HintPath>E:\Unity\Cooking\Library\PackageCache\com.unity.analytics@3.6.12\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Editor">
+        <HintPath>E:\Unity\Cooking\Library\PackageCache\com.unity.analytics@3.6.12\Unity.Analytics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Tracker">
+        <HintPath>E:\Unity\Cooking\Library\PackageCache\com.unity.analytics@3.6.12\Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
     <Reference Include="netstandard">
         <HintPath>E:\Unity\2020.3.27f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
     </Reference>
@@ -609,23 +618,17 @@
     <Reference Include="mscorlib">
         <HintPath>E:\Unity\2020.3.27f1\Editor\Data\NetStandard\compat\2.0.0\shims\netfx\mscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Animation.Editor">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.001">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
+    <Reference Include="Purchasing.Common">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Purchasing.Common.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.PixelPerfect">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.PixelPerfect.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="PsdPlugin">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\PsdPlugin.dll</HintPath>
+    <Reference Include="UnityEngine.Purchasing">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
@@ -639,20 +642,14 @@
     <Reference Include="Unity.TextMeshPro">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.IK.Editor">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
+    <Reference Include="UnityEngine.Purchasing.SecurityStub">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.Purchasing.SecurityStub.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Psdimporter.Editor">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Psdimporter.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Path.Editor">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Path.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridge.001">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
@@ -663,41 +660,47 @@
     <Reference Include="Unity.Rider.Editor">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Analytics">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Mathematics">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
+    <Reference Include="Unity.Analytics.DataPrivacy">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.IK.Runtime">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    <Reference Include="UnityEngine.Purchasing.SecurityCore">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.Purchasing.SecurityCore.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Animation.Triangle.Runtime">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
+    <Reference Include="UnityEngine.Purchasing.Codeless">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.Purchasing.Codeless.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Animation.Runtime">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Animation.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.PixelPerfect.Editor">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.PixelPerfect.Editor.dll</HintPath>
+    <Reference Include="UnityEngine.XR.LegacyInputHelpers">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
         <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Mathematics.Editor">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    <Reference Include="UnityEngine.Purchasing.Stores">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.Purchasing.Stores.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Common.Runtime">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
+    <Reference Include="UnityEditor.XR.LegacyInputHelpers">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.SpriteShape.Editor">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
+    <Reference Include="UnityEngine.Monetization">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.Monetization.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Common.Editor">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+    <Reference Include="UnityEditor.Purchasing">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEditor.Purchasing.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.SpriteShape.Runtime">
-        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
+    <Reference Include="UnityEditor.SpatialTracking">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEditor.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Advertisements.Editor">
+        <HintPath>E:\Unity\Cooking\Library\ScriptAssemblies\UnityEngine.Advertisements.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
