@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Random=System.Random;
 
 public class steakMovement : MonoBehaviour
 {
@@ -16,12 +17,17 @@ public class steakMovement : MonoBehaviour
     private const float middleFireSpeed = 6.6f;
     private const float smallFireSpeed = 4.5f;
 
+    //set degree of meat
+    private const int rawDegree = 1;
+    private const int mediumDegree = 2;
+    private const int wellDoneDegree = 3;
+
     //set meat completeness
     private float[] bigFireCompleteness;
     private float[] middleFireCompleteness;
     private float[] smallFireCompleteness;
     private float[] meatCompleteness;
-    //FIXME in future 菜单引用后可能会使用菜单script的static变量
+    //盘上的肉第一次点击出肉，第二次点击提交菜单
     private bool[] panHasMeat;
 
     //record time
@@ -35,9 +41,44 @@ public class steakMovement : MonoBehaviour
 
     private bool controlTimeIntervalIncrement;
 
-    private bool test1;
-    private bool test2;
-    private bool test3;
+    void hideMeat(int index){
+        GameObject.Find("meat"+(index+1).ToString()).transform.position = new Vector2(-85f,44f);
+        panHasMeat[index] = false;
+    }
+
+    void updateOrderByIndex(int index){
+        Random rnd = new Random();
+        int num = rnd.Next(rawDegree,wellDoneDegree+1);
+        print("random number: "+num);
+        orderController.meatDegree[index] = num;
+        GameObject.Find("menu-meat"+(index+1).ToString()).GetComponent<SpriteRenderer>().sprite = 
+            num==rawDegree?rawMeat:num==mediumDegree?mediumMeat:wellDoneMeat;
+    }
+
+    void addPoint(int point){
+        //TODO if have time, add a satisfaction bar, based on satisfaction level, add points, 1 -> 3
+        pointController.points += point;
+    }
+
+    void submitOrder(int index){
+        int meatStatus = 1;
+        if(meatCompleteness[index]<50){
+            meatStatus = rawDegree;
+        }else if(meatCompleteness[index]>50&&meatCompleteness[index]<80){
+            meatStatus = mediumDegree;
+        }else if(meatCompleteness[index]>80&&meatCompleteness[index]<110){
+            meatStatus = wellDoneDegree;
+        }
+
+        for(int i=0;i<orderController.meatDegree.Length;i++){
+            if(orderController.meatDegree[i]==meatStatus){
+                print("meat matched");
+                updateOrderByIndex(i);
+                addPoint(1);
+                return;
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -52,14 +93,10 @@ public class steakMovement : MonoBehaviour
         timeInterval = new float[,]{{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f}};
         previousFire = new int[]{3,3,3,3};
         updateTimer = true;
-        passTime = true;
-        test1 = true;
-        test2 = true;
-        test3 = true;
+        for(int i=0;i<4;i++){
+            hideMeat(i);
+        }
     }
-
-    //TODO 火候计算完成度
-    //TODO 可控制4个锅并计算
 
     // Update is called once per frame
     void Update()
@@ -70,20 +107,31 @@ public class steakMovement : MonoBehaviour
                 levelTimer[i] += Time.deltaTime;
             }
         }
+        //check current pan and current fire
+        int currentPan = PanController.currentPan;
+        int[] currentFire = fireController.currentFire;
+
+        if(Input.GetKeyDown(KeyCode.Return)){
+            if(panHasMeat[currentPan-1]==false){
+                GameObject.Find("meat"+(currentPan).ToString()).transform.position = new Vector2(
+                    currentPan==1?-6.88f:currentPan==2?-2.65f:currentPan==3?2.3f:6.34f,-0.86f);
+                panHasMeat[currentPan-1] = true;
+                levelTimer[currentPan-1] = 0.0f;
+            }else{
+                //FIXME fix 按enter 无论false还是true都运行了，因为getkeydown太快
+                // submit order
+                // hideMeat(currentPan-1);
+                // submitOrder(currentPan-1);
+            }
+        }
+        
+        if(Input.GetKeyDown("k")&&panHasMeat[currentPan-1]){
+            //temporary submit order
+            hideMeat(currentPan-1);
+            submitOrder(currentPan-1);
+        }
 
         for(int i=0;i<leftTime.Length;i++){
-            //TEST ONLY
-            if(levelTimer[i]>=2&&passTime){
-                panHasMeat[i] = true;
-                levelTimer[i] = 0.0f;
-                if(i==3){
-                    passTime=false;
-                }
-            }
-            
-            //check current pan and current fire
-            int currentPan = PanController.currentPan;
-            int[] currentFire = fireController.currentFire;
 
             //calculate completeness
             if(panHasMeat[i]){
@@ -102,14 +150,14 @@ public class steakMovement : MonoBehaviour
                         break;
                 }
                 meatCompleteness[i] = bigFireCompleteness[i]+middleFireCompleteness[i]+smallFireCompleteness[i];
-                print("meat completeness:"+meatCompleteness[i].ToString());
+                // print("meat completeness:"+meatCompleteness[i].ToString());
             }
 
             //detect if fire is changed
             if(previousFire[i]!=currentFire[i]){
                 //calculate accumulated each fire's interval
                 timeInterval[i,previousFire[i]-1] += levelTimer[i] - leftTime[i];
-                print("detected previous fire: "+previousFire[i].ToString()+"timeInterval: "+timeInterval[i,previousFire[i]-1]);
+                // print("detected previous fire: "+previousFire[i].ToString()+"timeInterval: "+timeInterval[i,previousFire[i]-1]);
             
                 leftTime[i] = levelTimer[i];
                 //!!!!!!!!!NOTICE this must set [0] to [0] otherwise, the previous will be current, the same thing
@@ -117,11 +165,11 @@ public class steakMovement : MonoBehaviour
                 }
 
             //check if meat is done, and its current status
-            if(meatCompleteness[i]<50&&test1){
+            if(meatCompleteness[i]<50){
                 GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = rawMeat;
-            }else if(meatCompleteness[i]>50&&meatCompleteness[i]<80&&test2){
+            }else if(meatCompleteness[i]>50&&meatCompleteness[i]<80){
                 GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = mediumMeat;
-            }else if(meatCompleteness[i]>80&&meatCompleteness[i]<110&&test3){
+            }else if(meatCompleteness[i]>80&&meatCompleteness[i]<110){
                 GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = wellDoneMeat;
             }else{
 

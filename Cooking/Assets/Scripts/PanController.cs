@@ -27,13 +27,11 @@ public class PanController : MonoBehaviour
                 currentPan++;
                 pos.x = GameObject.Find("pan"+currentPan.ToString()).transform.position.x;
             }
-            Debug.Log(currentPan);
         }else if(Input.GetKeyDown("a")){
             if(currentPan!=PAN1){
                 currentPan--;
                 pos.x = GameObject.Find("pan"+currentPan.ToString()).transform.position.x;
             }
-            Debug.Log(currentPan);
         }
         transform.position = pos;
     }

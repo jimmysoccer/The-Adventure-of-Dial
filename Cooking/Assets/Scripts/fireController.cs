@@ -42,7 +42,6 @@ public class fireController : MonoBehaviour
                     GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = bigFire;
                     break;
             }
-            Debug.Log("up arrow");
         }else if(Input.GetKeyDown(KeyCode.DownArrow)){
             if(currentFire[currentPanIdex]!=SMALL_FIRE){
                 currentFire[currentPanIdex]--;
@@ -62,7 +61,6 @@ public class fireController : MonoBehaviour
                     GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = smallFire;
                     break;
             }
-            Debug.Log("down arrow");
         }
     }
 }

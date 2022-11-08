@@ -38,7 +38,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\PanController.cs" />
      <Compile Include="Assets\Scripts\fireController.cs" />
+     <Compile Include="Assets\Scripts\orderController.cs" />
      <Compile Include="Assets\Scripts\steakMovement.cs" />
+     <Compile Include="Assets\Scripts\pointController.cs" />
     <Reference Include="UnityEngine">
         <HintPath>E:\Unity\2020.3.27f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
