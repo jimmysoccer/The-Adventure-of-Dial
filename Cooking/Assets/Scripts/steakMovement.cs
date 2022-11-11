@@ -8,9 +8,11 @@ using Random=System.Random;
 public class steakMovement : MonoBehaviour
 {
     //set image variables
+    public Sprite blueRawMeat;
     public Sprite rawMeat;
     public Sprite mediumMeat;
     public Sprite wellDoneMeat;
+    public Sprite overcookedMeat;
 
     //set fire speed rate
     private const float bigFireSpeed = 10.0f;
@@ -18,9 +20,11 @@ public class steakMovement : MonoBehaviour
     private const float smallFireSpeed = 4.5f;
 
     //set degree of meat
+    private const int blueRawDegree = 0;
     private const int rawDegree = 1;
     private const int mediumDegree = 2;
     private const int wellDoneDegree = 3;
+    private const int overcookedDegree = 4;
 
     //set meat completeness
     private float[] bigFireCompleteness;
@@ -47,12 +51,68 @@ public class steakMovement : MonoBehaviour
     }
 
     void updateOrderByIndex(int index){
+        if(index>=orderController.meatDegree.Count){
+            print("not enough order");
+            return;
+        }
         Random rnd = new Random();
         int num = rnd.Next(rawDegree,wellDoneDegree+1);
-        print("random number: "+num);
+        orderController.moveOrderIndex = index;
+        if(index==0){
+            GameObject.Find("menu1").transform.position = new Vector2(-85f,44f);
+            GameObject.Find("menu1").name = "temp";
+            GameObject.Find("menu2").name = "menu1";
+            GameObject.Find("menu3").name = "menu2";
+            GameObject.Find("menu4").name = "menu3";
+            GameObject.Find("temp").name = "menu4";
+
+            GameObject.Find("menu-meat1").name = "temp";
+            GameObject.Find("menu-meat2").name = "menu-meat1";
+            GameObject.Find("menu-meat3").name = "menu-meat2";
+            GameObject.Find("menu-meat4").name = "menu-meat3";
+            GameObject.Find("temp").name = "menu-meat4";
+        }
+        if(index == 1){
+            GameObject.Find("menu2").transform.position = new Vector2(-85f,44f);
+            GameObject.Find("menu2").name = "temp";
+            GameObject.Find("menu3").name = "menu2";
+            GameObject.Find("menu4").name = "menu3";
+            GameObject.Find("temp").name = "menu4";
+
+            GameObject.Find("menu-meat2").name = "temp";
+            GameObject.Find("menu-meat3").name = "menu-meat2";
+            GameObject.Find("menu-meat4").name = "menu-meat3";
+            GameObject.Find("temp").name = "menu-meat4";
+        }
+        if(index == 2){
+            GameObject.Find("menu3").transform.position = new Vector2(-85f,44f);
+            GameObject.Find("menu3").name = "temp";
+            GameObject.Find("menu4").name = "menu3";
+            GameObject.Find("temp").name = "menu4";
+            
+            GameObject.Find("menu-meat3").name = "temp";
+            GameObject.Find("menu-meat4").name = "menu-meat3";
+            GameObject.Find("temp").name = "menu-meat4";
+        }
+        if(index == 3){
+            GameObject.Find("menu4").transform.position = new Vector2(-85f,44f);
+        }
         orderController.meatDegree[index] = num;
-        GameObject.Find("menu-meat"+(index+1).ToString()).GetComponent<SpriteRenderer>().sprite = 
-            num==rawDegree?rawMeat:num==mediumDegree?mediumMeat:wellDoneMeat;
+        for(int i = 0;i<orderController.meatDegree.Count;i++){
+            if(i == 3){
+                orderController.meatDegree[i] = num;
+                GameObject.Find("menu-meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = 
+                    num==rawDegree?rawMeat:num==mediumDegree?mediumMeat:num==wellDoneDegree?wellDoneMeat:rawMeat;
+            }else if(i>=index){
+                orderController.meatDegree[i] = orderController.meatDegree[i+1];
+                GameObject.Find("menu-meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = 
+                    orderController.meatDegree[i+1]==rawDegree?
+                    rawMeat:orderController.meatDegree[i+1]==mediumDegree?
+                    mediumMeat:orderController.meatDegree[i+1]==wellDoneDegree?
+                    wellDoneMeat:rawMeat;
+            }
+        }
+        print("order menu: "+orderController.meatDegree[0]+" "+orderController.meatDegree[1]+" "+orderController.meatDegree[2]+" "+orderController.meatDegree[3]+" \n");
     }
 
     void addPoint(int point){
@@ -60,24 +120,35 @@ public class steakMovement : MonoBehaviour
         pointController.points += point;
     }
 
+    void minusPoint(int point){
+        if(pointController.points!=0){
+            pointController.points -= point;
+        }
+    }
+
     void submitOrder(int index){
+        print("submit order index: "+index);
         int meatStatus = 1;
-        if(meatCompleteness[index]<50){
+        if(meatCompleteness[index]<30){
+            meatStatus = blueRawDegree;
+        }else if(meatCompleteness[index]>30&&meatCompleteness[index]<50){
             meatStatus = rawDegree;
         }else if(meatCompleteness[index]>50&&meatCompleteness[index]<80){
             meatStatus = mediumDegree;
         }else if(meatCompleteness[index]>80&&meatCompleteness[index]<110){
             meatStatus = wellDoneDegree;
+        }else if(meatCompleteness[index]>110){
+            meatStatus = overcookedDegree;
         }
-
-        for(int i=0;i<orderController.meatDegree.Length;i++){
+        for(int i=0;i<orderController.meatDegree.Count;i++){
             if(orderController.meatDegree[i]==meatStatus){
-                print("meat matched");
                 updateOrderByIndex(i);
                 addPoint(1);
                 return;
             }
         }
+        minusPoint(1);
+        print("submit order doesn't find correct order");
     }
 
     // Start is called before the first frame update
@@ -124,7 +195,7 @@ public class steakMovement : MonoBehaviour
                 // submitOrder(currentPan-1);
             }
         }
-        
+
         if(Input.GetKeyDown("k")&&panHasMeat[currentPan-1]){
             //temporary submit order
             hideMeat(currentPan-1);
@@ -165,17 +236,17 @@ public class steakMovement : MonoBehaviour
                 }
 
             //check if meat is done, and its current status
-            if(meatCompleteness[i]<50){
+            if(meatCompleteness[i]<30){
+                GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = blueRawMeat;
+            }else if(meatCompleteness[i]>30&&meatCompleteness[i]<50){
                 GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = rawMeat;
             }else if(meatCompleteness[i]>50&&meatCompleteness[i]<80){
                 GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = mediumMeat;
             }else if(meatCompleteness[i]>80&&meatCompleteness[i]<110){
                 GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = wellDoneMeat;
-            }else{
-
+            }else if(meatCompleteness[i]>110){
+                GameObject.Find("meat"+(i+1).ToString()).GetComponent<SpriteRenderer>().sprite = overcookedMeat;
             }
         }
-
-        
     }
 }

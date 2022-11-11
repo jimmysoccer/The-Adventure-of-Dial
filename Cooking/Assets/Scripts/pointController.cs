@@ -68,12 +68,15 @@ public class pointController : MonoBehaviour
     void Update()
     {
         if(points<10){
+            GameObject.Find("score2").transform.position = new Vector2(-86.0f,86.0f);
+            GameObject.Find("score3").transform.position = new Vector2(-86.0f,86.0f);
             char digit1 = points.ToString()[0];
             modifyPoint(digit1,"score1");
         }else if(points>9&&points<100){
             char digit1 = points.ToString()[1]; //个位数
             char digit2 = points.ToString()[0]; //十位数
             GameObject.Find("score2").transform.position = new Vector2(8.04f,4.5f);
+            GameObject.Find("score3").transform.position = new Vector2(-86.0f,86.0f);
             modifyPoint(digit1,"score1");
             modifyPoint(digit2,"score2");
         }else if(points>99&&points<1000){

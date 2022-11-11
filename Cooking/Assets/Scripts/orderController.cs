@@ -8,32 +8,79 @@ public class orderController : MonoBehaviour
     private const int rawDegree = 1;
     private const int mediumDegree = 2;
     private const int wellDoneDegree = 3;
+    
+    //set image variables
+    public Sprite rawMeat;
+    public Sprite mediumMeat;
+    public Sprite wellDoneMeat;
 
     private float levelTimer;
+    private float tempTimer;
     private bool[] orderShown;
-    static public int[] meatDegree;//set degree of meat on order
+    static public List<int> meatDegree;//set degree of meat on order
+    static public int moveOrderIndex;//set which index of order should be moved
 
     // Start is called before the first frame update
     void Start()
     {
         levelTimer = 0.0f;
+        tempTimer = 0.0f;
         orderShown = new bool[]{false,false,false,false};
-        meatDegree = new int[]{rawDegree,wellDoneDegree,mediumDegree,mediumDegree};
-        for(int i=0;i<4;i++){
-            GameObject.Find("menu"+(i+1).ToString()).transform.position = new Vector2(-85f,44f);
-        }
-        
+        meatDegree = new List<int>(){rawDegree,wellDoneDegree,mediumDegree,mediumDegree};
+        moveOrderIndex = -1;
     }
     // Update is called once per frame
     void Update()
     {
-        levelTimer += Time.deltaTime;
-        //start set order appear
-        for(int i=0;i<4;i++){
-            if(levelTimer>=(2.0f+2.0f*i)&&levelTimer<=(3.0f+2.0f*i)&&orderShown[i]==false){
-                orderShown[i]=true;
-                GameObject.Find("menu"+(i+1).ToString()).transform.position = new Vector2(-8.5f+2.0f*i,4.4f);
+        //TODO 修改菜单变动时，菜单往前移动一格
+        if(moveOrderIndex!=-1){
+            float x1 = GameObject.Find("menu1").transform.position.x;
+            float x2 = GameObject.Find("menu2").transform.position.x;
+            float x3 = GameObject.Find("menu3").transform.position.x;
+            float x4 = GameObject.Find("menu4").transform.position.x;
+            
+        // GameObject.Find("menu4").name = "menu404";
+            if(moveOrderIndex==0){
+                if(x1>=-8.5f){
+                    GameObject.Find("menu1").transform.position = new Vector2(x1-0.05f,4.4f);
+                }
+                if(x2>=-6.5f){
+                    GameObject.Find("menu2").transform.position = new Vector2(x2-0.05f,4.4f);
+                }
+                if(x3>=-4.5f){
+                    GameObject.Find("menu3").transform.position = new Vector2(x3-0.05f,4.4f);
+                }
+                if(x1<=-8.5F&&x2<=-6.5f&&x3<=-4.5f){
+                    GameObject.Find("menu4").transform.position = new Vector2(-2.5f,4.4f);
+                }
+            }
+            if(moveOrderIndex==1){
+                if(x2>=-6.5f){
+                    GameObject.Find("menu2").transform.position = new Vector2(x2-0.05f,4.4f);
+                }
+                if(x3>=-4.5f){
+                    GameObject.Find("menu3").transform.position = new Vector2(x3-0.05f,4.4f);
+                }
+                if(x1<=-8.5F&&x2<=-6.5f&&x3<=-4.5f){
+                    GameObject.Find("menu4").transform.position = new Vector2(-2.5f,4.4f);
+                }
+            }
+            if(moveOrderIndex==2){
+                if(x3>=-4.5f){
+                    GameObject.Find("menu3").transform.position = new Vector2(x3-0.05f,4.4f);
+                }
+                if(x1<=-8.5F&&x2<=-6.5f&&x3<=-4.5f){
+                    GameObject.Find("menu4").transform.position = new Vector2(-2.5f,4.4f);
+                }
+            }
+            if(moveOrderIndex==3){
+                tempTimer+= Time.deltaTime;
+                if(tempTimer>=2.0f&&tempTimer<=2.5f){
+                    tempTimer = 0.0f;
+                    GameObject.Find("menu4").transform.position = new Vector2(-2.5f,4.4f);
+                }
             }
         }
+        levelTimer += Time.deltaTime;
     }
 }
