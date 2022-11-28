@@ -81,20 +81,29 @@ public class controller : MonoBehaviour
             run = true;
             if(rotate_left_allowed) {
                 rotate_left_allowed = false;
+                rotate_right_allowed = true;
                 ll = false;
             } else {
                 rotate_left_allowed = true;
+                rotate_right_allowed = false;
                 ll = true;
             }
             if(rotate_right_allowed) {
                 rotate_right_allowed = false;
+                rotate_left_allowed = true;
                 rr = false;
             } else {
                 rotate_right_allowed = true;
+                rotate_left_allowed = false;
                 rr = true;
             }
-            instru_L.SetActive(rotate_left_allowed);
-            instru_R.SetActive(rotate_right_allowed);
+            // if(rotate_left_allowed) {
+            //     instru_L.SetActive(true);
+            //     instru_R.SetActive(false);
+            // }else {
+            //     instru_L.SetActive(false);
+            //     instru_R.SetActive(true);
+            // }
             if(curr_r == 3) {
                 opened.SetActive(true);
                 canvas.SetActive(true);
