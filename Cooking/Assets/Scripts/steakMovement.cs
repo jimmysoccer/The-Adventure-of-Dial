@@ -52,7 +52,6 @@ public class steakMovement : MonoBehaviour
 
     void updateOrderByIndex(int index){
         if(index>=orderController.meatDegree.Count){
-            print("not enough order");
             return;
         }
         Random rnd = new Random();
@@ -112,11 +111,9 @@ public class steakMovement : MonoBehaviour
                     wellDoneMeat:rawMeat;
             }
         }
-        print("order menu: "+orderController.meatDegree[0]+" "+orderController.meatDegree[1]+" "+orderController.meatDegree[2]+" "+orderController.meatDegree[3]+" \n");
     }
 
     void addPoint(int point){
-        //TODO if have time, add a satisfaction bar, based on satisfaction level, add points, 1 -> 3
         pointController.points += point;
     }
 
@@ -127,7 +124,6 @@ public class steakMovement : MonoBehaviour
     }
 
     void submitOrder(int index){
-        print("submit order index: "+index);
         int meatStatus = 1;
         if(meatCompleteness[index]<30){
             meatStatus = blueRawDegree;
@@ -148,7 +144,6 @@ public class steakMovement : MonoBehaviour
             }
         }
         minusPoint(1);
-        print("submit order doesn't find correct order");
     }
 
     // Start is called before the first frame update
@@ -188,18 +183,11 @@ public class steakMovement : MonoBehaviour
                     currentPan==1?-6.88f:currentPan==2?-2.65f:currentPan==3?2.3f:6.34f,-0.86f);
                 panHasMeat[currentPan-1] = true;
                 levelTimer[currentPan-1] = 0.0f;
-            }else{
-                //FIXME fix 按enter 无论false还是true都运行了，因为getkeydown太快
+            }else if(panHasMeat[currentPan-1]){
                 // submit order
-                // hideMeat(currentPan-1);
-                // submitOrder(currentPan-1);
+                hideMeat(currentPan-1);
+                submitOrder(currentPan-1);
             }
-        }
-
-        if(Input.GetKeyDown("k")&&panHasMeat[currentPan-1]){
-            //temporary submit order
-            hideMeat(currentPan-1);
-            submitOrder(currentPan-1);
         }
 
         for(int i=0;i<leftTime.Length;i++){
@@ -221,15 +209,13 @@ public class steakMovement : MonoBehaviour
                         break;
                 }
                 meatCompleteness[i] = bigFireCompleteness[i]+middleFireCompleteness[i]+smallFireCompleteness[i];
-                // print("meat completeness:"+meatCompleteness[i].ToString());
             }
 
             //detect if fire is changed
             if(previousFire[i]!=currentFire[i]){
                 //calculate accumulated each fire's interval
                 timeInterval[i,previousFire[i]-1] += levelTimer[i] - leftTime[i];
-                // print("detected previous fire: "+previousFire[i].ToString()+"timeInterval: "+timeInterval[i,previousFire[i]-1]);
-            
+                
                 leftTime[i] = levelTimer[i];
                 //!!!!!!!!!NOTICE this must set [0] to [0] otherwise, the previous will be current, the same thing
                 previousFire[i] = currentFire[i];

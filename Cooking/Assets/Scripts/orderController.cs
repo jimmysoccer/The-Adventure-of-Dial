@@ -32,7 +32,6 @@ public class orderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TODO 修改菜单变动时，菜单往前移动一格
         if(moveOrderIndex!=-1){
             float x1 = GameObject.Find("menu1").transform.position.x;
             float x2 = GameObject.Find("menu2").transform.position.x;
