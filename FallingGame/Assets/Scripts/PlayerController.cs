@@ -7,16 +7,21 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
 
+
     public float speed;
     public float checkRadius; // to make sure where is the circle
     public LayerMask platform;
     public GameObject groundCheck; // to get a point on the ground, vector
+
+    
+
         
     
     float xVelocity;
     bool playerDead;
 
     public bool isOnGround;
+    
 
 
     void Start()
@@ -24,10 +29,15 @@ public class PlayerController : MonoBehaviour
         //to get the component
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+       
+
 
     }
 
-    
+   
+
+
+
     void Update()
     {
         //check whether it is falling
@@ -56,6 +66,18 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector3(xVelocity,1,1);
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape)){
+
+            // Time.timeScale = 0f;
+            //bgmManager.PauseMusic();
+            // GameObject.Find("BGM").SetActive(false);
+
+            playerDead = false; 
+            GameManager.GameOver(playerDead);
+
+
+        }
     }
 
     //check whether the user touched any spike
@@ -63,6 +85,7 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("spike")){
 
             anim.SetTrigger("dead");
+
         }
     }
     
@@ -75,7 +98,10 @@ public class PlayerController : MonoBehaviour
 
     //when the anim goes to the last sec, the player dead
     public void PlayerDead(){
+        //bgmManager.StopMusic();
         playerDead = true;
+        GameManager.GameOver(playerDead);
+
     }
 
 
