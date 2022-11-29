@@ -46,10 +46,10 @@ public class RopeManager : MonoBehaviour
     // }else if(transform.localRotation.z > 0.6f){
     //   Dir = Vector3.back;
     // }
-    if(Input.GetKeyDown(KeyCode.D) || transform.localRotation.z<-0.6f){
+    if(Input.GetKeyDown(KeyCode.RightArrow) || transform.localRotation.z<-0.6f){
       Dir = Vector3.forward;
       transform.Rotate(Dir * Speed * Time.deltaTime * 10);
-    }else if(Input.GetKeyDown(KeyCode.A) || transform.localRotation.z>0.6f){
+    }else if(Input.GetKeyDown(KeyCode.LeftArrow) || transform.localRotation.z>0.6f){
       Dir = Vector3.back;
       transform.Rotate(Dir * Speed * Time.deltaTime * 10);
     }

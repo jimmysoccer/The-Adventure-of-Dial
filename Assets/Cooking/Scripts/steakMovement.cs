@@ -177,7 +177,7 @@ public class steakMovement : MonoBehaviour
         int currentPan = PanController.currentPan;
         int[] currentFire = fireController.currentFire;
 
-        if(Input.GetKeyDown(KeyCode.Return)){
+        if(Input.GetKeyDown(KeyCode.Space)){
             if(panHasMeat[currentPan-1]==false){
                 GameObject.Find("meat"+(currentPan).ToString()).transform.position = new Vector2(
                     currentPan==1?-6.88f:currentPan==2?-2.65f:currentPan==3?2.3f:6.34f,-0.86f);

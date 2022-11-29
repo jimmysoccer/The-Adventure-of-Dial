@@ -38,7 +38,7 @@ public class Rope : MonoBehaviour {
 				Fishing = false;
 			}
 		}
-            if (Fishing == false && Input.GetKey("a")) {
+            if (Fishing == false && Input.GetKey(KeyCode.LeftArrow)) {
                 transform.localScale -= new Vector3(0, 1.5f * Time.deltaTime, 0);
                 if (transform.localScale.y <= 0.4f)
                 {

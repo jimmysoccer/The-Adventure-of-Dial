@@ -18,10 +18,10 @@ public class rotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown (KeyCode.D) && controller.rotate_left_allowed) {
+        if(Input.GetKeyDown (KeyCode.RightArrow) && controller.rotate_left_allowed) {
             x += 10; 
             source.Play();
-        } else if(Input.GetKeyDown (KeyCode.A) && controller.rotate_right_allowed) {
+        } else if(Input.GetKeyDown (KeyCode.LeftArrow) && controller.rotate_right_allowed) {
             x -= 10;
             source.Play();
         }

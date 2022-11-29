@@ -23,7 +23,7 @@ public class fireController : MonoBehaviour
     {
         int currentPanIdex = PanController.currentPan - 1;
         string fireName = "fire"+PanController.currentPan.ToString();
-        if(Input.GetKeyDown(KeyCode.UpArrow)){
+        if(Input.GetKeyDown(KeyCode.RightArrow)){
             if(currentFire[currentPanIdex]!=BIG_FIRE){
                 currentFire[currentPanIdex]++;
             }
@@ -42,7 +42,7 @@ public class fireController : MonoBehaviour
                     GameObject.Find(fireName).GetComponent<SpriteRenderer>().sprite = bigFire;
                     break;
             }
-        }else if(Input.GetKeyDown(KeyCode.DownArrow)){
+        }else if(Input.GetKeyDown(KeyCode.LeftArrow)){
             if(currentFire[currentPanIdex]!=SMALL_FIRE){
                 currentFire[currentPanIdex]--;
             }
