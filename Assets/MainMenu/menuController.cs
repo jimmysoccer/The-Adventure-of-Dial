@@ -18,6 +18,7 @@ public class menuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         Time.timeScale = 1f;
 
         if(Input.GetKeyDown("1")){
@@ -36,5 +37,15 @@ public class menuController : MonoBehaviour
         if(Input.GetKeyDown("5")){
             navigateToGame(5);
         }
+        if(Input.GetKeyDown(KeyCode.Q)){
+            Debug.Log("hhhhhhhhhhh");
+            Application.Quit();
+        }
+
     }
+
+    // public void quitGame(){
+    //     Debug.Log("hhhhhhhhhhh");
+    //     Application.Quit();
+    // }
 }
