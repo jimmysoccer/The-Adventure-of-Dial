@@ -102,13 +102,13 @@ public class controller : MonoBehaviour
                 rotate_left_allowed = false;
                 rr = true;
             }
-            // if(rotate_left_allowed) {
-            //     instru_L.SetActive(true);
-            //     instru_R.SetActive(false);
-            // }else {
-            //     instru_L.SetActive(false);
-            //     instru_R.SetActive(true);
-            // }
+            if(rotate_left_allowed) {
+                instru_L.SetActive(true);
+                instru_R.SetActive(false);
+            }else {
+                instru_L.SetActive(false);
+                instru_R.SetActive(true);
+            }
             if(curr_r == 3) {
                 opened.SetActive(true);
                 canvas.SetActive(true);
