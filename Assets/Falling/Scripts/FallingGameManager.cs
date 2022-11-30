@@ -51,7 +51,11 @@ public class FallingGameManager : MonoBehaviour
     }
 
     public void backToMain(){
+        Time.timeScale = 1f;
+
+
         SceneManager.LoadScene(0);
+        
     }
     
 
