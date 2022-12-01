@@ -38,14 +38,9 @@ public class menuController : MonoBehaviour
             navigateToGame(5);
         }
         if(Input.GetKeyDown(KeyCode.Q)){
-            Debug.Log("hhhhhhhhhhh");
+            Debug.Log("Quit the game");
             Application.Quit();
         }
 
     }
-
-    // public void quitGame(){
-    //     Debug.Log("hhhhhhhhhhh");
-    //     Application.Quit();
-    // }
 }
