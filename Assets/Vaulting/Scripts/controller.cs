@@ -19,7 +19,6 @@ public class controller : MonoBehaviour
     public GameObject instru_R;
     public GameObject instru_L;
     public GameObject opened;
-    public GameObject canvas;
 
     //test
     public float cr;
@@ -30,7 +29,9 @@ public class controller : MonoBehaviour
 
     void Start()
     {
-        curr_r = 0;   
+        curr_r = 0; 
+        rotate_left_allowed = false;
+        rotate_right_allowed = true;  
     }
 
     // Update is called once per frame
@@ -111,7 +112,6 @@ public class controller : MonoBehaviour
             }
             if(curr_r >= 3) {
                 opened.SetActive(true);
-                canvas.SetActive(true);
                 Application.Quit();
             }
         }

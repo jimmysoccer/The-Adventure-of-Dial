@@ -17,6 +17,7 @@ public class arrow_rotate : MonoBehaviour
     void Start()
     {
         zAngle = 0;
+        curr_value = 3;
     }
 
 

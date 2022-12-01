@@ -1356,7 +1356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1069596484
 Transform:
   m_ObjectHideFlags: 0
@@ -1451,7 +1451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1069605575
 Transform:
   m_ObjectHideFlags: 0
@@ -1724,7 +1724,6 @@ MonoBehaviour:
   instru_R: {fileID: 1654544224}
   instru_L: {fileID: 193753014}
   opened: {fileID: 1592851410}
-  canvas: {fileID: 0}
   cr: 0
   point: 0
   arrow: 0
