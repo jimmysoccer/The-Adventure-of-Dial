@@ -18,13 +18,13 @@ public class rotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown (KeyCode.RightArrow) && controller.rotate_left_allowed) {
-            x += 10; 
-            source.Play();
-        } else if(Input.GetKeyDown (KeyCode.LeftArrow) && controller.rotate_right_allowed) {
-            x -= 10;
-            source.Play();
-        }
-        transform.rotation = Quaternion.Euler(0,0,x); 
+            if(Input.GetKeyDown (KeyCode.RightArrow) && controller.rotate_left_allowed) {
+                x += 10; 
+                source.Play();
+            } else if(Input.GetKeyDown (KeyCode.LeftArrow) && controller.rotate_right_allowed) {
+                x -= 10;
+                source.Play();
+            }
+            transform.rotation = Quaternion.Euler(0,0,x); 
     }
 }

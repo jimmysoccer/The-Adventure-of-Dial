@@ -8,13 +8,14 @@ public class random_value : MonoBehaviour
     public static int[] r;
     void Start()
     {
-        r = new int[3];
+        r = new int[4];
         r[0] = Random.Range(0,13);
         while(r[0] == 3) r[0] = Random.Range(0,13);
         r[1] = Random.Range(0,13);
         while(r[1] == r[0]) r[1] = Random.Range(0,13);
         r[2] = Random.Range(0,13);
         while(r[2] == r[0] || r[1] == r[2]) r[2] = Random.Range(0,13);
+        r[3] = 1;
     }
 
     // Update is called once per frame

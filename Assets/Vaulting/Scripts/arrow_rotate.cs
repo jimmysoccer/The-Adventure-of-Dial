@@ -23,7 +23,7 @@ public class arrow_rotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(controller.curr_r % 2 == 0) {
+            if(controller.curr_r % 2 == 0) {
             if(Input.GetKeyDown (KeyCode.LeftArrow)) {
                 progress -= (float)0.5225;
                 zAngle = -25f;
@@ -53,5 +53,6 @@ public class arrow_rotate : MonoBehaviour
         float x1 = center.position.x + radius * Mathf.Cos(progress);
         float y1 = center.position.y + radius * Mathf.Sin(progress);
         this.transform.position = new Vector3(x1, y1);
-    }
+        }
+    
 }

@@ -30,7 +30,7 @@ public class controller : MonoBehaviour
 
     void Start()
     {
-        curr_r = 0;    
+        curr_r = 0;   
     }
 
     // Update is called once per frame
@@ -93,15 +93,15 @@ public class controller : MonoBehaviour
                 rotate_right_allowed = false;
                 ll = true;
             }
-            if(rotate_right_allowed) {
-                rotate_right_allowed = false;
-                rotate_left_allowed = true;
-                rr = false;
-            } else {
-                rotate_right_allowed = true;
-                rotate_left_allowed = false;
-                rr = true;
-            }
+            // if(rotate_right_allowed) {
+            //     rotate_right_allowed = false;
+            //     rotate_left_allowed = true;
+            //     rr = false;
+            // } else {
+            //     rotate_right_allowed = true;
+            //     rotate_left_allowed = false;
+            //     rr = true;
+            // }
             if(rotate_left_allowed) {
                 instru_L.SetActive(true);
                 instru_R.SetActive(false);
@@ -109,7 +109,7 @@ public class controller : MonoBehaviour
                 instru_L.SetActive(false);
                 instru_R.SetActive(true);
             }
-            if(curr_r == 3) {
+            if(curr_r >= 3) {
                 opened.SetActive(true);
                 canvas.SetActive(true);
                 Application.Quit();
