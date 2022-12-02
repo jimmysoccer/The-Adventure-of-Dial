@@ -43,7 +43,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -412,9 +411,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 5356}
     - Class: 114
-      Script: {instanceID: 33830}
+      Script: {instanceID: 17490}
     - Class: 114
-      Script: {instanceID: 33832}
+      Script: {instanceID: 17512}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -841,7 +840,7 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: 43e8544e2ccf635ec4973a1ab19c1287
+      Hash: 3f706800ad99c716d2a2a3e50e7cf3d3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: controller

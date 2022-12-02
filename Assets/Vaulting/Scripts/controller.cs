@@ -112,7 +112,6 @@ public class controller : MonoBehaviour
             }
             if(curr_r >= 3) {
                 opened.SetActive(true);
-                Application.Quit();
             }
         }
     }
